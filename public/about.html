@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Bloomfield Hall Science Society</title>
+  <link rel="icon" href="https://cdn.glitch.global/87942ebb-4f4c-494c-ae2d-2ce4d0b6cefb/logo.png?v=1747136438719" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #00ffae;
+      --secondary-color: #0dc0de;
+      --dark-bg: #0f111a;
+      --card-bg: #1b1e2f;
+      --light-text: #ffffff;
+      --dark-text: #0f111a;
+      --section-padding: 80px 0;
+    }
+
+    body.dark {
+      background-color: var(--dark-bg);
+      color: var(--light-text);
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+    }
+
+
+
+ 
+
+
+
+    /* Main Content */
+    main {
+      margin-top: 80px;
+      min-height: calc(100vh - 160px);
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, rgba(11, 13, 26, 0.9) 0%, rgba(27, 30, 47, 0.9) 100%), 
+                  url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-position: center;
+      padding: 100px 5%;
+      text-align: center;
+      color: var(--light-text);
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 50px;
+      color: var(--primary-color);
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: var(--primary-color);
+    }
+
+    /* About Sections */
+    .about-section {
+      padding: var(--section-padding);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .about-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    .about-card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 30px;
+      flex: 1 1 300px;
+      max-width: 500px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .about-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 255, 174, 0.1);
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: var(--primary-color);
+    }
+
+    /* Mission Section */
+    .mission-section {
+      background-color: var(--card-bg);
+      padding: var(--section-padding);
+      text-align: center;
+    }
+
+    .mission-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .mission-statement {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    /* Team Section */
+    .team-section {
+      padding: var(--section-padding);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .team-member {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .team-member:hover {
+      transform: translateY(-10px);
+    }
+
+    .member-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .member-info {
+      padding: 20px;
+    }
+
+    .member-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: 5px;
+      color: var(--primary-color);
+    }
+
+    .member-role {
+      color: var(--secondary-color);
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+
+    .member-bio {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--card-bg);
+      color: var(--light-text);
+      text-align: center;
+      padding: 20px;
+      margin-top: 60px;
+    }
+
+    /* Light Mode Styles */
+    body.light-mode {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    body.light-mode .hero-section {
+      background: linear-gradient(135deg, rgba(245, 245, 245, 0.9) 0%, rgba(220, 220, 220, 0.9) 100%), 
+                  url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+    }
+
+    body.light-mode .about-card,
+    body.light-mode .mission-section,
+    body.light-mode .team-member,
+    body.light-mode footer {
+      background-color: #ffffff;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+
+
+    body.light-mode .hero-title,
+    body.light-mode .section-title,
+    body.light-mode .card-title,
+    body.light-mode .member-name {
+      color: #2E8B57;
+    }
+
+    body.light-mode .section-title::after {
+      background-color: #2E8B57;
+    }
+
+    body.light-mode .member-role {
+      color: #138496;
+    }
+
+    body.light-mode .card-icon {
+      color: #2E8B57;
+    }
+
+
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hamburger.active .hamburger-line:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+      }
+
+      .hamburger.active .hamburger-line:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active .hamburger-line:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark">
+  <header>
+    <!--Navigation bar-->
+    <nav class="navbar">
+      <!--Logo and Title Container-->
+      <div class="logo-container">
+      <img src="https://cdn.glitch.global/87942ebb-4f4c-494c-ae2d-2ce4d0b6cefb/logo.png?v=1747136438719" alt="BHSS Logo" class="logo" loading="lazy" />
+        <span class="title">BHS Science Society</span>
+      </div>
+
+      <!--Nav Links-->
+    <div class="nav-center-container">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+      
+      <!--Theme Toggle-->
+      <button id="theme-toggle" aria-label="Toggle dark/light mode">
+        <i class="fas fa-moon"></i>
+      </button>
+      
+      <!--Hamburger-->
+      <button class="hamburger" id="hamburger-btn" aria-label="Menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1 class="hero-title">About Bloomfield Hall Science Society</h1>
+        <p class="hero-subtitle">Empowering young minds through scientific exploration and innovation</p>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2 class="section-title">Who We Are</h2>
+      <div class="about-container">
+        <div class="about-card">
+          <div class="card-icon">
+            <i class="fas fa-atom"></i>
+          </div>
+          <h3 class="card-title">Our Vision</h3>
+          <p>To create a community of young scientists who push the boundaries of knowledge and innovation, fostering a culture of scientific excellence at Bloomfield Hall and beyond.</p>
+        </div>
+
+        <div class="about-card">
+          <div class="card-icon">
+            <i class="fas fa-flask"></i>
+          </div>
+          <h3 class="card-title">Our Activities</h3>
+          <p>We organize regular seminars, workshops, science fairs, and competitions. Our members engage in research projects, attend conferences, and participate in national science olympiads.</p>
+        </div>
+
+        <div class="about-card">
+          <div class="card-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3 class="card-title">Our Community</h3>
+          <p>We welcome students from all backgrounds who share a passion for science. Our members collaborate across disciplines to solve real-world problems through scientific inquiry.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mission-section">
+      <div class="mission-content">
+        <h2 class="section-title">Our Mission</h2>
+        <p class="mission-statement">
+          The Bloomfield Hall Science Society is dedicated to nurturing scientific curiosity and excellence among students. 
+          We aim to provide a platform for young researchers to explore, innovate, and share their scientific discoveries. 
+          Through our programs, we foster critical thinking, problem-solving skills, and a deep appreciation for the scientific method.
+        </p>
+      </div>
+    </section>
+
+    <section class="team-section">
+      <h2 class="section-title">Meet Our Team</h2>
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Team Member" class="member-image">
+          <div class="member-info">
+            <h3 class="member-name">Dr. Sarah Khan</h3>
+            <p class="member-role">Faculty Advisor</p>
+            <p class="member-bio">PhD in Molecular Biology with 15 years of teaching experience and a passion for student research.</p>
+          </div>
+        </div>
+
+        <div class="team-member">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Team Member" class="member-image">
+          <div class="member-info">
+            <h3 class="member-name">Ali Rahman</h3>
+            <p class="member-role">President</p>
+            <p class="member-bio">Grade 12 student specializing in Physics and Computer Science, with multiple science competition awards.</p>
+          </div>
+        </div>
+
+        <div class="team-member">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Team Member" class="member-image">
+          <div class="member-info">
+            <h3 class="member-name">Fatima Ahmed</h3>
+            <p class="member-role">Vice President</p>
+            <p class="member-bio">Grade 11 student passionate about Biochemistry and Environmental Science, leads our outreach programs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Bloomfield Hall Science Society | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Theme Toggle
+      const themeToggle = document.getElementById("theme-toggle");
+      const icon = themeToggle.querySelector("i");
+      
+      themeToggle.addEventListener("click", function () {
+        document.body.classList.toggle("light-mode");
+        document.body.classList.toggle("dark");
+        
+        if (document.body.classList.contains("light-mode")) {
+          icon.classList.remove("fa-moon");
+          icon.classList.add("fa-sun");
+        } else {
+          icon.classList.remove("fa-sun");
+          icon.classList.add("fa-moon");
+        }
+      });
+
+      // Mobile Menu Toggle
+      const hamburgerBtn = document.getElementById("hamburger-btn");
+      const navLinks = document.getElementById("navLinks");
+      
+      hamburgerBtn.addEventListener("click", function () {
+        hamburgerBtn.classList.toggle("active");
+        navLinks.classList.toggle("active");
+      });
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll(".nav-links a").forEach(link => {
+        link.addEventListener("click", () => {
+          hamburgerBtn.classList.remove("active");
+          navLinks.classList.remove("active");
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events | Bloomfield Hall Science Society</title>
+  <link rel="icon" href="https://cdn.glitch.global/87942ebb-4f4c-494c-ae2d-2ce4d0b6cefb/logo.png?v=1747136438719" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #00ffae;
+      --secondary-color: #0dc0de;
+      --dark-bg: #0f111a;
+      --card-bg: #1b1e2f;
+      --light-text: #ffffff;
+      --dark-text: #0f111a;
+      --section-padding: 80px 0;
+    }
+
+    body.dark {
+      background-color: var(--dark-bg);
+      color: var(--light-text);
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Header Styles (same as about.html) */
+    header {
+      background-color: rgba(0, 0, 0, 0.8);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo {
+      height: 40px;
+      width: auto;
+    }
+
+    .title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 600;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--light-text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+
+    .nav-links a.active {
+      color: var(--primary-color);
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--primary-color);
+    }
+
+    /* Theme Toggle */
+    #theme-toggle {
+      background: none;
+      border: none;
+      color: var(--light-text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    #theme-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      padding: 0;
+    }
+
+    .hamburger-line {
+      width: 100%;
+      height: 3px;
+      background-color: var(--light-text);
+      transition: all 0.3s ease;
+    }
+
+    /* Main Content */
+    main {
+      margin-top: 80px;
+      min-height: calc(100vh - 160px);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, rgba(11, 13, 26, 0.9) 0%, rgba(27, 30, 47, 0.9) 100%), 
+                  url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-position: center;
+      padding: 100px 5%;
+      text-align: center;
+      color: var(--light-text);
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 50px;
+      color: var(--primary-color);
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: var(--primary-color);
+    }
+
+    /* Event Filter Buttons */
+    .event-filter {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 10px 20px;
+      border-radius: 30px;
+      background-color: var(--card-bg);
+      color: var(--light-text);
+      border: 2px solid var(--primary-color);
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background-color: var(--primary-color);
+      color: var(--dark-text);
+    }
+
+    /* Event Cards */
+    .events-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .event-card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .event-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 255, 174, 0.1);
+    }
+
+    .event-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .event-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .badge-workshop {
+      background-color: rgba(13, 192, 222, 0.2);
+      color: var(--secondary-color);
+      border: 1px solid var(--secondary-color);
+    }
+
+    .badge-competition {
+      background-color: rgba(220, 53, 69, 0.2);
+      color: #dc3545;
+      border: 1px solid #dc3545;
+    }
+
+    .badge-talk {
+      background-color: rgba(255, 193, 7, 0.2);
+      color: #ffc107;
+      border: 1px solid #ffc107;
+    }
+
+    .badge-exhibition {
+      background-color: rgba(111, 66, 193, 0.2);
+      color: #6f42c1;
+      border: 1px solid #6f42c1;
+    }
+
+    .event-content {
+      padding: 20px;
+    }
+
+    .event-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+    }
+
+    .event-meta {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .meta-item i {
+      color: var(--primary-color);
+    }
+
+    .event-desc {
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+
+    .event-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .event-btn {
+      padding: 8px 15px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: var(--dark-text);
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #7bd859;
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(0, 255, 174, 0.1);
+    }
+
+    /* Countdown Banner */
+    .countdown-banner {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 40px auto;
+      max-width: 800px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .countdown-content {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .countdown-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: var(--dark-text);
+    }
+
+    .countdown-subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+      color: var(--dark-text);
+    }
+
+    .countdown-timer {
+      display: flex;
+      gap: 10px;
+    }
+
+    .countdown-item {
+      background-color: rgba(0, 0, 0, 0.2);
+      padding: 10px 15px;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .countdown-number {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--dark-text);
+    }
+
+    .countdown-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      opacity: 0.8;
+      color: var(--dark-text);
+    }
+
+    /* Stats Section */
+    .stats-section {
+      background-color: var(--card-bg);
+      padding: var(--section-padding);
+      text-align: center;
+    }
+
+    .stats-container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .stat-item {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .stat-number {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      opacity: 0.8;
+    }
+
+    /* Sponsors Section */
+    .sponsors-section {
+      padding: var(--section-padding);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .sponsors-grid {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .sponsor-logo {
+      height: 60px;
+      width: auto;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+      filter: grayscale(100%);
+    }
+
+    .sponsor-logo:hover {
+      opacity: 1;
+      filter: grayscale(0%);
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--card-bg);
+      color: var(--light-text);
+      text-align: center;
+      padding: 20px;
+      margin-top: 60px;
+    }
+
+    /* Light Mode Styles */
+    body.light-mode {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    body.light-mode .hero-section {
+      background: linear-gradient(135deg, rgba(245, 245, 245, 0.9) 0%, rgba(220, 220, 220, 0.9) 100%), 
+                  url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+    }
+
+    body.light-mode .event-card,
+    body.light-mode .stats-section,
+    body.light-mode footer {
+      background-color: #ffffff;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    body.light-mode .nav-links a {
+      color: #333;
+    }
+
+    body.light-mode .nav-links a:hover {
+      color: #2E8B57;
+    }
+
+    body.light-mode .nav-links a.active {
+      color: #2E8B57;
+    }
+
+    body.light-mode .nav-links a.active::after {
+      background-color: #2E8B57;
+    }
+
+    body.light-mode .hero-title,
+    body.light-mode .section-title,
+    body.light-mode .event-title {
+      color: #2E8B57;
+    }
+
+    body.light-mode .section-title::after {
+      background-color: #2E8B57;
+    }
+
+    body.light-mode .filter-btn {
+      background-color: #ffffff;
+      color: #333;
+      border-color: #2E8B57;
+    }
+
+    body.light-mode .filter-btn:hover, 
+    body.light-mode .filter-btn.active {
+      background-color: #2E8B57;
+      color: white;
+    }
+
+    body.light-mode .btn-secondary {
+      color: #2E8B57;
+      border-color: #2E8B57;
+    }
+
+    body.light-mode .btn-secondary:hover {
+      background-color: rgba(46, 139, 87, 0.1);
+    }
+
+    body.light-mode .meta-item i {
+      color: #2E8B57;
+    }
+
+    body.light-mode .stat-number {
+      color: #2E8B57;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .nav-links {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background-color: var(--dark-bg);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        transition: left 0.3s ease;
+      }
+
+      .nav-links.active {
+        left: 0;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hamburger.active .hamburger-line:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+      }
+
+      .hamburger.active .hamburger-line:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active .hamburger-line:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .events-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .countdown-banner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .countdown-timer {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body class="dark">
+  <header>
+    <nav class="navbar">
+      <div class="logo-container">
+        <img src="https://cdn.glitch.global/87942ebb-4f4c-494c-ae2d-2ce4d0b6cefb/logo.png?v=1747136438719" alt="BHSS Logo" class="logo">
+        <span class="title">BH Science Society</span>
+      </div>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="events.html" class="active">Events</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <button id="theme-toggle" aria-label="Toggle dark/light mode">
+        <i class="fas fa-moon"></i>
+      </button>
+
+      <button class="hamburger" id="hamburger-btn" aria-label="Menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Announcement Banner -->
+    <div class="countdown-banner">
+      <div class="countdown-content">
+        <h3 class="countdown-title">🚨 Registrations Open!</h3>
+        <p class="countdown-subtitle">BHSS Annual Science Olympiad - Deadline: June 15, 2025</p>
+      </div>
+      <a href="register.html" class="event-btn btn-primary">
+        <i class="fas fa-arrow-right"></i> Register Now
+      </a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1 class="hero-title">Events & Activities</h1>
+        <p class="hero-subtitle">Explore our upcoming competitions, workshops, and science exhibitions</p>
+      </div>
+    </section>
+
+    <!-- Upcoming Events -->
+    <section class="events-section">
+      <div class="events-container">
+        <h2 class="section-title">Upcoming Events</h2>
+        
+        <div class="event-filter">
+          <button class="filter-btn active" data-filter="all">All Events</button>
+          <button class="filter-btn" data-filter="workshop">Workshops</button>
+          <button class="filter-btn" data-filter="competition">Competitions</button>
+          <button class="filter-btn" data-filter="talk">Talks</button>
+          <button class="filter-btn" data-filter="exhibition">Exhibitions</button>
+        </div>
+
+        <div class="events-grid">
+          <!-- Event 1 -->
+          <div class="event-card" data-category="competition">
+            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Science Olympiad" class="event-image">
+            <span class="event-badge badge-competition">Competition</span>
+            <div class="event-content">
+              <h3 class="event-title">BHSS Science Olympiad</h3>
+              <div class="event-meta">
+                <span class="meta-item"><i class="far fa-calendar"></i> June 20, 2025</span>
+                <span class="meta-item"><i class="far fa-clock"></i> 9:00 AM - 4:00 PM</span>
+                <span class="meta-item"><i class="fas fa-map-marker-alt"></i> BHSS Main Hall</span>
+              </div>
+              <p class="event-desc">
+                Our annual science competition for students grades 9-12. Test your knowledge in Physics, Chemistry, Biology, and Mathematics.
+              </p>
+              <div class="event-actions">
+                <a href="register.html" class="event-btn btn-primary">
+                  <i class="fas fa-user-plus"></i> Register
+                </a>
+                <a href="#" class="event-btn btn-secondary">
+                  <i class="fas fa-file-pdf"></i> Brochure
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 2 -->
+          <div class="event-card" data-category="workshop">
+            <img src="https://images.unsplash.com/photo-1551033406-611cf9a28f67?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Robotics Workshop" class="event-image">
+            <span class="event-badge badge-workshop">Workshop</span>
+            <div class="event-content">
+              <h3 class="event-title">Robotics & AI Workshop</h3>
+              <div class="event-meta">
+                <span class="meta-item"><i class="far fa-calendar"></i> July 5, 2025</span>
+                <span class="meta-item"><i class="far fa-clock"></i> 10:00 AM - 2:00 PM</span>
+                <span class="meta-item"><i class="fas fa-map-marker-alt"></i> Computer Lab 3</span>
+              </div>
+              <p class="event-desc">
+                Hands-on workshop introducing robotics and artificial intelligence concepts. No prior experience required. All materials provided.
+              </p>
+              <div class="event-actions">
+                <a href="register.html" class="event-btn btn-primary">
+                  <i class="fas fa-user-plus"></i> Register
+                </a>
+                <a href="#" class="event-btn btn-secondary">
+                  <i class="fas fa-info-circle"></i> Details
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 3 -->
+          <div class="event-card" data-category="talk">
+            <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1112&q=80" alt="Guest Lecture" class="event-image">
+            <span class="event-badge badge-talk">Guest Talk</span>
+            <div class="event-content">
+              <h3 class="event-title">Future of Space Exploration</h3>
+              <div class="event-meta">
+                <span class="meta-item"><i class="far fa-calendar"></i> August 12, 2025</span>
+                <span class="meta-item"><i class="far fa-clock"></i> 3:00 PM - 5:00 PM</span>
+                <span class="meta-item"><i class="fas fa-map-marker-alt"></i> Auditorium</span>
+              </div>
+              <p class="event-desc">
+                Dr. Ayesha Khan from the National Space Agency discusses upcoming Mars missions and career opportunities in space science.
+              </p>
+              <div class="event-actions">
+                <a href="register.html" class="event-btn btn-primary">
+                  <i class="fas fa-user-plus"></i> Register
+                </a>
+                <a href="#" class="event-btn btn-secondary">
+                  <i class="fas fa-user-tie"></i> Speaker Bio
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Past Events -->
+    <section class="events-section">
+      <div class="events-container">
+        <h2 class="section-title">Past Events</h2>
+        
+        <div class="events-grid">
+          <!-- Past Event 1 -->
+          <div class="event-card">
+            <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Science Fair" class="event-image">
+            <div class="event-content">
+              <h3 class="event-title">Annual Science Fair 2024</h3>
+              <div class="event-meta">
+                <span class="meta-item"><i class="far fa-calendar"></i> March 15, 2024</span>
+                <span class="meta-item"><i class="fas fa-trophy"></i> 120 Participants</span>
+              </div>
+              <p class="event-desc">
+                Showcase of innovative student projects across all science disciplines. Winners represented our school at the national level.
+              </p>
+              <div class="event-actions">
+                <a href="#" class="event-btn btn-secondary">
+                  <i class="fas fa-images"></i> Gallery
+                </a>
+                <a href="#" class="event-btn btn-secondary">
+                  <i class="fas fa-newspaper"></i> Report
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Past Event 2 -->
+          <div class="event-card">
+            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Chemistry Workshop" class="event-image">
+            <div class="event-content">
+              <h3 class="event-title">Chemistry Magic Show</h3>
+              <div class="event-meta">
+                <span class="meta-item"><i class="far fa-calendar"></i> February 3, 2024</span>
+                <span class="meta-item"><i class="fas fa-users"></i> 85 Attendees</span>
+              </div>
+              <p class="event-desc">
+                Interactive demonstration of exciting chemical reactions. Students participated in safe experiments and learned practical applications.
+              </p>
+              <div class="event-actions">
+                <a href="#" class="event-btn btn-secondary">
+                  <i class="fas fa-video"></i> Video
+                </a>
+                <a href="#" class="event-btn btn-secondary">
+                  <i class="fas fa-flask"></i> Experiments
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Past Event 3 -->
+          <div class="event-card">
+            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Coding Competition" class="event-image">
+            <div class="event-content">
+              <h3 class="event-title">Inter-School Coding Challenge</h3>
+              <div class="event-meta">
+                <span class="meta-item"><i class="far fa-calendar"></i> November 20, 2023</span>
+                <span class="meta-item"><i class="fas fa-medal"></i> 1st Place Won</span>
+              </div>
+              <p class="event-desc">
+                Our team won first place against 15 schools in the annual programming competition. Problem-solving in Python and algorithms.
+              </p>
+              <div class="event-actions">
+                <a href="#" class="event-btn btn-secondary">
+                  <i class="fas fa-trophy"></i> Winners
+                </a>
+                <a href="#" class="event-btn btn-secondary">
+                  <i class="fas fa-code"></i> Problems
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+      <div class="events-container">
+        <h2 class="section-title">This Year's Stats</h2>
+        <div class="stats-container">
+          <div class="stat-item">
+            <div class="stat-number">8</div>
+            <div class="stat-label">Events Held</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">250+</div>
+            <div class="stat-label">Participants</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">18</div>
+            <div class="stat-label">Winners</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">5</div>
+            <div class="stat-label">Guest Speakers</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sponsors Section -->
+    <section class="sponsors-section">
+      <div class="events-container">
+        <h2 class="section-title">Our Partners</h2>
+        <div class="sponsors-grid">
+          <img src="https://via.placeholder.com/150x60?text=Science+Foundation" alt="Science Foundation" class="sponsor-logo">
+          <img src="https://via.placeholder.com/150x60?text=Tech+Corp" alt="Tech Corp" class="sponsor-logo">
+          <img src="https://via.placeholder.com/150x60?text=University+Lab" alt="University Lab" class="sponsor-logo">
+          <img src="https://via.placeholder.com/150x60?text=STEM+Initiative" alt="STEM Initiative" class="sponsor-logo">
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Bloomfield Hall Science Society | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Theme Toggle
+      const themeToggle = document.getElementById("theme-toggle");
+      const icon = themeToggle.querySelector("i");
+      
+      themeToggle.addEventListener("click", function () {
+        document.body.classList.toggle("light-mode");
+        document.body.classList.toggle("dark");
+        
+        if (document.body.classList.contains("light-mode")) {
+          icon.classList.remove("fa-moon");
+          icon.classList.add("fa-sun");
+        } else {
+          icon.classList.remove("fa-sun");
+          icon.classList.add("fa-moon");
+        }
+      });
+
+      // Mobile Menu Toggle
+      const hamburgerBtn = document.getElementById("hamburger-btn");
+      const navLinks = document.getElementById("navLinks");
+      
+      hamburgerBtn.addEventListener("click", function () {
+        hamburgerBtn.classList.toggle("active");
+        navLinks.classList.toggle("active");
+      });
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll(".nav-links a").forEach(link => {
+        link.addEventListener("click", () => {
+          hamburgerBtn.classList.remove("active");
+          navLinks.classList.remove("active");
+        });
+      });
+
+      // Event Filtering
+      const filterButtons = document.querySelectorAll(".filter-btn");
+      const eventCards = document.querySelectorAll(".event-card[data-category]");
+      
+      filterButtons.forEach(button => {
+        button.addEventListener("click", () => {
+          // Update active button
+          filterButtons.forEach(btn => btn.classList.remove("active"));
+          button.classList.add("active");
+          
+          const filterValue = button.dataset.filter;
+          
+          // Filter events
+          eventCards.forEach(card => {
+            if (filterValue === "all" || card.dataset.category === filterValue) {
+              card.style.display = "block";
+            } else {
+              card.style.display = "none";
+            }
+          });
+        });
+      });
+
+      // Countdown Timer (example for next event)
+      function updateCountdown() {
+        const eventDate = new Date("June 20, 2025 09:00:00").getTime();
+        const now = new Date().getTime();
+        const distance = eventDate - now;
+        
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        // Update your countdown elements here
+        // You'll need to add elements with appropriate IDs to your HTML
+      }
+      
+      // Update countdown every second
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
+    });
+  </script>
+</body>
+</html>

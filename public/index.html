@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Content-Security-Policy-Report-Only" content="
+  default-src 'self';
+  script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;
+  style-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com;
+  font-src 'self' https://fonts.gstatic.com;
+">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+
+  <title>Bloomfield Hall Science Society</title>
+  <link rel="icon" href="https://cdn.glitch.global/87942ebb-4f4c-494c-ae2d-2ce4d0b6cefb/logo.png?v=1747136438719" type="image/png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0f111a;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+    
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #000000;
+      padding: 15px 5%;
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+      box-shadow: 0 2px 10px rgba(0, 255, 174, 0.1);
+      
+    }
+    .nav-center-container {
+      position: absolute;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      z-index: 1;
+    }
+
+    .navbar .logo {
+      height: 45px;
+      width: auto;
+    }
+
+    .navbar .title {
+      font-size: 1rem;
+      font-weight: bold;
+      color: white;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+      transition: all 0.3s ease;
+      pointer-events: auto;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links li a:hover {
+      background-color: #00ffae;
+      color: #0f111a;
+      transform: translateY(-2px);
+    }
+
+    /* Theme Toggle Button */
+    #theme-toggle {
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 10px;
+      transition: color 0.3s ease;
+      margin-left: auto;
+      z-index: 1;
+    }
+
+    #theme-toggle:hover {
+      color: #00ffae;
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 1001;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+    }
+
+    .hamburger-line {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: white;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active .hamburger-line:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+
+    .hamburger.active .hamburger-line:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active .hamburger-line:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(ellipse at center, #8A00C4 0%, #0f111a 100%);
+      color: #FFFDD0;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-family: 'Orbitron', sans-serif;
+      color: #0dc0de;
+      margin-bottom: 1rem;
+      z-index: 2;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      color: #FFFDD0;
+      z-index: 2;
+    }
+
+    .cta-button {
+      background-color: #0dc0de;
+      color: #ffffff;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s ease;
+      z-index: 2;
+      border: none;
+    }
+
+    .cta-button:hover {
+      background-color: #7bd859;
+      color: #FFFDD0;
+    }
+
+    /* Floating Icons */
+    .floating-icons {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .icon {
+      position: absolute;
+      font-size: 1.8rem;
+      color: #ffffff22;
+      animation: float 12s linear infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+      }
+    }
+
+    /* Sections */
+    section {
+      padding: 80px 20px;
+      text-align: center;
+      animation: fadeUp 0.8s ease-in;
+    }
+
+    section h2 {
+      font-size: 2.4rem;
+      margin-bottom: 25px;
+      color: #00ffae;
+    }
+
+    section p {
+      font-size: 1.1rem;
+      color: #cccccc;
+      max-width: 850px;
+      margin: auto;
+    }
+
+    /* Button Link */
+    .register-link {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 28px;
+      background-color: #6A5ACD;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .register-link:hover {
+      background-color: #2E8B57;
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #000000;
+      color: #888;
+      text-align: center;
+      padding: 25px 0;
+      font-size: 0.9rem;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* LIGHT MODE STYLES */
+    .light-mode {
+      background-color: #f0f0f0;
+      color: #000000;
+    }
+
+    .light-mode nav {
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .light-mode nav ul li a {
+      color: #000000;
+    }
+
+    .light-mode nav ul li a:hover {
+      background-color: #2E8B57;
+      color: #ffffff;
+    }
+    .light-mode #theme-toggle {
+      color: #000000;
+    }
+    .light-mode .nav-links{
+      background-color: white;
+    }
+    .light-mode #theme-toggle:hover {
+      color: #2E8B57;
+    }
+    .light-mode .title {
+      color: #000000;
+    }
+
+    .light-mode .hero {
+      background: linear-gradient(135deg, #a0d6b4, #b0b7f5);
+      color: #000;
+    }
+
+    .light-mode section h2 {
+      color: #2E8B57;
+    }
+
+    .light-mode section p {
+      color: #444;
+    }
+
+    .light-mode footer {
+      background-color: #ffffff;
+      color: #555;
+    }
+    .light-mode hamburger-line {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: black;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    .light-mode .hamburger-line {
+      background-color: black;
+    }
+
+
+    /* Section cards */
+    .event-cards, .blog-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .event-card, .blog-card {
+      background-color: #1b1e2f;
+      color: #ffffff;
+      padding: 25px;
+      border-radius: 16px;
+      width: 300px;
+      box-shadow: 0 8px 20px rgba(0, 255, 174, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: left;
+    }
+
+    .event-card:hover, .blog-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0, 255, 174, 0.25);
+    }
+
+    .event-card .date, .blog-card a {
+      display: block;
+      margin-top: 10px;
+      color: #00ffae;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      margin-top: 20px;
+      display: inline-block;
+      background-color: transparent;
+      color: #00ffae;
+      padding: 10px 22px;
+      border: 2px solid #00ffae;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .btn-secondary:hover {
+      background-color: #00ffae;
+      color: #0f111a;
+    }
+
+    /* Register Reasons */
+    .reasons {
+      list-style: none;
+      font-size: 1.2rem;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    /* Default: Dark Mode */
+    body.dark .reasons li {
+      color: #FFFDD0;
+    }
+
+    /* Light Mode */
+    body.light-mode .reasons li {
+      color: #333333;
+    }
+
+    /* Contact Section */
+    .contact-links p {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+
+    .contact-links a {
+      color: #00ffae;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .contact-links a:hover {
+      color: #7bd859;
+      text-decoration: underline;
+    }
+
+    /* Light mode styles for contact links */
+    body.light-mode .contact-links a {
+      color: #2E8B57;
+    }
+
+    body.light-mode .contact-links a:hover {
+      color: #6A5ACD;
+    }
+
+    /* Responsive Layout */
+    @media (max-width: 992px) {
+      .nav-links {
+        position: fixed;
+        top: 75px;
+        left: 0;
+        width: 100%;
+        background-color: #000;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        gap: 15px;
+        transform: translateY(-150%);
+        opacity: 0;
+        z-index: 999;
+      }
+      
+      .nav-links.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .hamburger {
+        display: flex;
+        order: 3;
+      }
+
+      #theme-toggle {
+        order: 2;
+        margin-left: auto;
+        margin-right: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .navbar .title {
+        display: none;
+      }
+    
+      .navbar {
+        padding: 15px 20px;
+      }
+
+      .nav-links li {
+        text-align: center;
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+
+<body class="dark">
+  <header>
+    <!--Navigation bar-->
+    <nav class="navbar">
+      <!--Logo and Title Container-->
+      <div class="logo-container">
+        
+      <img src="https://cdn.glitch.global/87942ebb-4f4c-494c-ae2d-2ce4d0b6cefb/logo.png?v=1747136438719" alt="BHSS Logo" class="logo" loading="lazy" />
+        <span class="title">BHS Science Society</span>
+      </div>
+
+      <!--Nav Links-->
+    <div class="nav-center-container">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+      
+      <!--Theme Toggle-->
+      <button id="theme-toggle" aria-label="Toggle dark/light mode">
+        <i class="fas fa-moon"></i>
+      </button>
+      
+      <!--Hamburger-->
+      <button class="hamburger" id="hamburger-btn" aria-label="Menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </nav>
+  </header>
+
+  <!--Hero-->
+  <section class="hero" id="hero" data-aos="fade-in">
+    <div class="hero-content">
+      <h1>Explore. Discover. Create.</h1>
+      <p>Welcome to the Bloomfield Hall Science Society — where ideas become experiments, and curiosity fuels innovation.</p>
+      <a href="register.html" class="cta-button">Join the Society</a>
+    </div>
+    <div class="floating-icons">
+      <div class="icon" style="left: 10%; animation-delay: 0s;">⚛️</div>
+      <div class="icon" style="left: 25%; animation-delay: 2s;">🧬</div>
+      <div class="icon" style="left: 40%; animation-delay: 4s;">🧪</div>
+      <div class="icon" style="left: 60%; animation-delay: 6s;">💡</div>
+      <div class="icon" style="left: 75%; animation-delay: 1s;">🔬</div>
+      <div class="icon" style="left: 90%; animation-delay: 3s;">🤖</div>
+    </div>
+  </section>
+  
+  <!--About-->
+  <section class="about" id="about" data-aos="fade-up">
+    <h2>About Us</h2>
+    <p>The Bloomfield Hall Science Society is a student-led initiative aiming to ignite curiosity and foster scientific exploration. From robotics to riddles, we dive deep into every corner of STEM and beyond.</p>
+    <a href="about.html" class="btn-secondary">Learn More</a>
+  </section>
+  
+  <!--Events-->
+  <section class="upcoming-events" id="events" data-aos="fade-up">
+    <h2>Upcoming Events</h2>
+    <div class="event-cards">
+      <div class="event-card">
+        <h3>Science Olympiad</h3>
+        <p>Compete in a thrilling, multi-discipline science competition. Form 3 to A2 are welcomed!</p>
+        <span class="date">June 15, 2025</span>
+      </div>
+      <div class="event-card">
+        <h3>Robotics Workshop</h3>
+        <p>Build your own line-following robot in a hands-on session!</p>
+        <span class="date">May 25, 2025</span>
+      </div>
+      <div class="event-card">
+        <h3>Guest Talk: From Falling Apples To Cern</h3>
+        <p>A glimpse into how physics has changed the world with Dr Pervez Hoodbhoy.</p>
+        <span class="date">July 5, 2025</span>
+      </div>
+    </div>
+    <a href="events.html" class="btn-secondary">View All Events</a>
+  </section>
+  
+
+  <!--Blog-->
+  <section class="lastest-blogpost-review" id="latest-blogpost-review" data-aos="fade-up">
+    <h2>Latest from the Blog</h2>
+    <div class="blog-cards">
+      <div class="blog-card">
+        <h3>How we Turned Noise Into Power!</h3>
+        <p>Imagine charging your phone just by walking through a noisy street. Our sound-to-electricity experiment used vibrations from sound waves to generate real, usable power!</p>
+        <a href="/blog1.html">Read More →</a>
+      </div>
+      <div class="blog-card">
+        <h3>Can Roads Generate Electricity?</h3>
+        <p>What if roads could do more than just carry cars? Our prototype uses every passing step and wheel to produce clean energy using piezoelectric tech.</p>
+        <a href="/blog2.html">Read More →</a>
+      </div>
+    </div>
+    <a href="/blog.html" class="btn-secondary">Visit Blogs</a>
+  </section>
+  
+
+  <!--Registration Place-->
+  <section class="register" id="register" data-aos="zoom-in">
+    <h2>Why Join BHSS?</h2>
+    <ul class="reasons">
+      <li>🚀 Participate in national science contests</li>
+      <li>🤖 Get hands-on experience with science, robotics, AI & more</li>
+      <li>🧠 Boost your CV with opportunities</li>
+    </ul>
+    <a href="register.html" class="cta-button">Register Now</a>
+  </section>
+  
+
+  <!--Contact-->
+  <section class="contact" id="contact" data-aos="fade-up">
+    <h2>Contact Us</h2>
+    <div class="contact-links">
+      <p>
+        📧 Email:
+        <a href="mailto:bhsciencesociety@gmail.com">bhsciencesociety@gmail.com</a>
+      </p>
+      <p>
+        📸 Instagram:
+        <a href="https://instagram.com/bhssci" target="_blank">@bhsciencesociety</a>
+      </p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Made by mohaimin </p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Theme toggle functionality
+      const toggleButton = document.getElementById('theme-toggle');
+      const body = document.body;
+      const icon = toggleButton.querySelector('i');
+
+      // Load saved theme from localStorage
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      body.classList.remove('dark', 'light-mode');
+      body.classList.add(savedTheme === 'light' ? 'light-mode' : 'dark');
+      icon.classList.toggle('fa-sun', savedTheme === 'light');
+      icon.classList.toggle('fa-moon', savedTheme !== 'light');
+
+      toggleButton.addEventListener('click', () => {
+        const isLight = body.classList.contains('light-mode');
+        body.classList.toggle('light-mode');
+        body.classList.toggle('dark');
+        
+        icon.classList.toggle('fa-sun');
+        icon.classList.toggle('fa-moon');
+        
+        localStorage.setItem('theme', isLight ? 'dark' : 'light');
+      });
+
+      // Hamburger menu functionality
+      const hamburgerBtn = document.getElementById('hamburger-btn');
+      const navLinks = document.getElementById('navLinks');
+
+      hamburgerBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        hamburgerBtn.classList.toggle('active');
+        navLinks.classList.toggle('show');
+      });
+      
+      // Close menu when clicking on a link
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburgerBtn.classList.remove('active');
+          navLinks.classList.remove('show');
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.navbar') && window.innerWidth <= 992) {
+          hamburgerBtn.classList.remove('active');
+          navLinks.classList.remove('show');
+        }
+      });
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research | Bloomfield Hall Science Society</title>
+  <link rel="icon" href="https://cdn.glitch.global/87942ebb-4f4c-494c-ae2d-2ce4d0b6cefb/logo.png?v=1747136438719" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #00ffae;
+      --secondary-color: #0dc0de;
+      --dark-bg: #0f111a;
+      --card-bg: #1b1e2f;
+      --light-text: #ffffff;
+      --dark-text: #0f111a;
+      --section-padding: 80px 0;
+    }
+
+    body.dark {
+      background-color: var(--dark-bg);
+      color: var(--light-text);
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Header Styles (same as other pages) */
+    header {
+      background-color: rgba(0, 0, 0, 0.8);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo {
+      height: 40px;
+      width: auto;
+    }
+
+    .title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 600;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--light-text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+
+    .nav-links a.active {
+      color: var(--primary-color);
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--primary-color);
+    }
+
+    /* Theme Toggle */
+    #theme-toggle {
+      background: none;
+      border: none;
+      color: var(--light-text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    #theme-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      padding: 0;
+    }
+
+    .hamburger-line {
+      width: 100%;
+      height: 3px;
+      background-color: var(--light-text);
+      transition: all 0.3s ease;
+    }
+
+    /* Main Content */
+    main {
+      margin-top: 80px;
+      min-height: calc(100vh - 160px);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, rgba(11, 13, 26, 0.9) 0%, rgba(27, 30, 47, 0.9) 100%), 
+                  url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-position: center;
+      padding: 100px 5%;
+      text-align: center;
+      color: var(--light-text);
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      display: inline-block;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: var(--dark-text);
+    }
+
+    .btn-primary:hover {
+      background-color: #7bd859;
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 50px;
+      color: var(--primary-color);
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: var(--primary-color);
+    }
+
+    /* Featured Research */
+    .featured-section {
+      padding: var(--section-padding);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .featured-card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .featured-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 255, 174, 0.1);
+    }
+
+    .featured-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .featured-content {
+      padding: 20px;
+    }
+
+    .featured-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+    }
+
+    .featured-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .featured-abstract {
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+
+    /* Categories Filter */
+    .categories-section {
+      background-color: var(--card-bg);
+      padding: 40px 0;
+    }
+
+    .categories-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .category-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .category-tag {
+      padding: 8px 15px;
+      background-color: rgba(0, 255, 174, 0.1);
+      color: var(--primary-color);
+      border-radius: 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .category-tag:hover, .category-tag.active {
+      background-color: var(--primary-color);
+      color: var(--dark-text);
+    }
+
+    .search-container {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 20px;
+      background-color: var(--dark-bg);
+      border: 2px solid var(--primary-color);
+      border-radius: 30px;
+      color: var(--light-text);
+      font-size: 1rem;
+    }
+
+    .search-btn {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      background-color: var(--primary-color);
+      color: var(--dark-text);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+    }
+
+    /* Articles Grid */
+    .articles-section {
+      padding: var(--section-padding);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .article-card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .article-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 255, 174, 0.1);
+    }
+
+    .article-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .article-content {
+      padding: 20px;
+    }
+
+    .article-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+    }
+
+    .article-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+
+    .article-excerpt {
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+
+    .read-more {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Stats Section */
+    .stats-section {
+      background-color: var(--card-bg);
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .stats-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .stat-item {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .stat-number {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      opacity: 0.8;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--card-bg);
+      color: var(--light-text);
+      text-align: center;
+      padding: 20px;
+      margin-top: 60px;
+    }
+
+    /* Light Mode Styles */
+    body.light-mode {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    body.light-mode .hero-section {
+      background: linear-gradient(135deg, rgba(245, 245, 245, 0.9) 0%, rgba(220, 220, 220, 0.9) 100%), 
+                  url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+    }
+
+    body.light-mode .featured-card,
+    body.light-mode .categories-section,
+    body.light-mode .article-card,
+    body.light-mode .stats-section,
+    body.light-mode footer {
+      background-color: #ffffff;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    body.light-mode .nav-links a {
+      color: #333;
+    }
+
+    body.light-mode .nav-links a:hover {
+      color: #2E8B57;
+    }
+
+    body.light-mode .nav-links a.active {
+      color: #2E8B57;
+    }
+
+    body.light-mode .nav-links a.active::after {
+      background-color: #2E8B57;
+    }
+
+    body.light-mode .hero-title,
+    body.light-mode .section-title,
+    body.light-mode .featured-title,
+    body.light-mode .article-title {
+      color: #2E8B57;
+    }
+
+    body.light-mode .section-title::after {
+      background-color: #2E8B57;
+    }
+
+    body.light-mode .category-tag {
+      background-color: rgba(46, 139, 87, 0.1);
+      color: #2E8B57;
+    }
+
+    body.light-mode .category-tag:hover,
+    body.light-mode .category-tag.active {
+      background-color: #2E8B57;
+      color: white;
+    }
+
+    body.light-mode .read-more {
+      color: #2E8B57;
+    }
+
+    body.light-mode .stat-number {
+      color: #2E8B57;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .nav-links {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background-color: var(--dark-bg);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        transition: left 0.3s ease;
+      }
+
+      .nav-links.active {
+        left: 0;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hamburger.active .hamburger-line:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+      }
+
+      .hamburger.active .hamburger-line:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active .hamburger-line:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .featured-grid,
+      .articles-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="dark">
+  <header>
+    <nav class="navbar">
+      <div class="logo-container">
+        <img src="https://cdn.glitch.global/87942ebb-4f4c-494c-ae2d-2ce4d0b6cefb/logo.png?v=1747136438719" alt="BHSS Logo" class="logo">
+        <span class="title">BH Science Society</span>
+      </div>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="research.html" class="active">Research</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <button id="theme-toggle" aria-label="Toggle dark/light mode">
+        <i class="fas fa-moon"></i>
+      </button>
+
+      <button class="hamburger" id="hamburger-btn" aria-label="Menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1 class="hero-title">Research & Articles</h1>
+        <p class="hero-subtitle">Explore student-led discoveries, science articles, and innovative ideas from BHSS members</p>
+        <a href="#submit" class="btn btn-primary">
+          <i class="fas fa-pen-alt"></i> Submit Your Article
+        </a>
+      </div>
+    </section>
+
+    <!-- Featured Research -->
+    <section class="featured-section">
+      <h2 class="section-title">Featured Research</h2>
+      <div class="featured-grid">
+        <!-- Featured Article 1 -->
+        <div class="featured-card">
+          <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Quantum Computing" class="featured-image">
+          <div class="featured-content">
+            <h3 class="featured-title">Quantum Computing: The Future of Technology</h3>
+            <div class="featured-meta">
+              <span><i class="fas fa-user"></i> Ali Rahman</span>
+              <span><i class="far fa-calendar"></i> May 15, 2025</span>
+            </div>
+            <p class="featured-abstract">
+              Exploring the fundamentals of quantum mechanics and how they're revolutionizing computing technology.
+            </p>
+            <a href="#" class="read-more">
+              Read More <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Featured Article 2 -->
+        <div class="featured-card">
+          <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Neuroscience" class="featured-image">
+          <div class="featured-content">
+            <h3 class="featured-title">The Teenage Brain: Neuroscience Findings</h3>
+            <div class="featured-meta">
+              <span><i class="fas fa-user"></i> Fatima Ahmed</span>
+              <span><i class="far fa-calendar"></i> April 28, 2025</span>
+            </div>
+            <p class="featured-abstract">
+              Recent discoveries about adolescent brain development and implications for education.
+            </p>
+            <a href="#" class="read-more">
+              Read More <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Featured Article 3 -->
+        <div class="featured-card">
+          <img src="https://images.unsplash.com/photo-1509718443690-d8e2fb3474b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Renewable Energy" class="featured-image">
+          <div class="featured-content">
+            <h3 class="featured-title">Sustainable Energy Solutions for Pakistan</h3>
+            <div class="featured-meta">
+              <span><i class="fas fa-user"></i> Zoya Riaz</span>
+              <span><i class="far fa-calendar"></i> March 10, 2025</span>
+            </div>
+            <p class="featured-abstract">
+              Analyzing renewable energy potential and practical implementation strategies for our region.
+            </p>
+            <a href="#" class="read-more">
+              Read More <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories Filter -->
+    <section class="categories-section">
+      <div class="categories-container">
+        <h2 class="section-title">Explore by Category</h2>
+        <div class="category-tags">
+          <span class="category-tag active">All</span>
+          <span class="category-tag">Physics</span>
+          <span class="category-tag">Chemistry</span>
+          <span class="category-tag">Biology</span>
+          <span class="category-tag">Computer Science</span>
+          <span class="category-tag">Robotics</span>
+          <span class="category-tag">Environment</span>
+          <span class="category-tag">Psychology</span>
+          <span class="category-tag">Opinion</span>
+          <span class="category-tag">Project Reports</span>
+        </div>
+        <div class="search-container">
+          <input type="text" class="search-input" placeholder="Search articles...">
+          <button class="search-btn">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Articles Grid -->
+    <section class="articles-section">
+      <h2 class="section-title">Latest Articles</h2>
+      <div class="articles-grid">
+        <!-- Article 1 -->
+        <div class="article-card">
+          <img src="https://images.unsplash.com/photo-1551269901-5c5e14c25df7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Article Image" class="article-image">
+          <div class="article-content">
+            <h3 class="article-title">The Mathematics of Music</h3>
+            <div class="article-meta">
+              <span><i class="fas fa-user"></i> Haris Khan</span>
+              <span><i class="far fa-calendar"></i> June 2, 2025</span>
+            </div>
+            <p class="article-excerpt">
+              How mathematical patterns underlie musical harmony and rhythm across cultures...
+            </p>
+            <a href="#" class="read-more">
+              Read More <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Article 2 -->
+        <div class="article-card">
+          <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Article Image" class="article-image">
+          <div class="article-content">
+            <h3 class="article-title">Nanotechnology in Medicine</h3>
+            <div class="article-meta">
+              <span><i class="fas fa-user"></i> Ayesha Malik</span>
+              <span><i class="far fa-calendar"></i> May 25, 2025</span>
+            </div>
+            <p class="article-excerpt">
+              Exploring how tiny particles are revolutionizing drug delivery and cancer treatment...
+            </p>
+            <a href="#" class="read-more">
+              Read More <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Article 3 -->
+        <div class="article-card">
+          <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Article Image" class="article-image">
+          <div class="article-content">
+            <h3 class="article-title">Coding for Social Good</h3>
+            <div class="article-meta">
+              <span><i class="fas fa-user"></i> Omar Farooq</span>
+              <span><i class="far fa-calendar"></i> May 18, 2025</span>
+            </div>
+            <p class="article-excerpt">
+              How students are using programming skills to solve community problems...
+            </p>
+            <a href="#" class="read-more">
+              Read More <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Article 4 -->
+        <div class="article-card">
+          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="Article Image" class="article-image">
+          <div class="article-content">
+            <h3 class="article-title">Climate Change in Pakistan</h3>
+            <div class="article-meta">
+              <span><i class="fas fa-user"></i> Sana Iqbal</span>
+              <span><i class="far fa-calendar"></i> May 10, 2025</span>
+            </div>
+            <p class="article-excerpt">
+              Local impacts of global warming and what students can do to help...
+            </p>
+            <a href="#" class="read-more">
+              Read More <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Article 5 -->
+        <div class="article-card">
+          <img src="https://images.unsplash.com/photo-1509718443690-d8e2fb3474b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Article Image" class="article-image">
+          <div class="article-content">
+            <h3 class="article-title">Renewable Energy Experiments</h3>
+            <div class="article-meta">
+              <span><i class="fas fa-user"></i> Bilal Ahmed</span>
+              <span><i class="far fa-calendar"></i> April 30, 2025</span>
+            </div>
+            <p class="article-excerpt">
+              Hands-on projects exploring solar, wind, and hydro power alternatives...
+            </p>
+            <a href="#" class="read-more">
+              Read More <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Article 6 -->
+        <div class="article-card">
+          <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Article Image" class="article-image">
+          <div class="article-content">
+            <h3 class="article-title">The Science of Happiness</h3>
+            <div class="article-meta">
+              <span><i class="fas fa-user"></i> Zainab Khan</span>
+              <span><i class="far fa-calendar"></i> April 22, 2025</span>
+            </div>
+            <p class="article-excerpt">
+              Psychological research on what truly makes us happy and how to apply it...
+            </p>
+            <a href="#" class="read-more">
+              Read More <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+      <div class="stats-container">
+        <div class="stat-item">
+          <div class="stat-number">25+</div>
+          <div class="stat-label">Articles Published</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">12</div>
+          <div class="stat-label">Research Fields</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">500+</div>
+          <div class="stat-label">Total Reads</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">15</div>
+          <div class="stat-label">Student Authors</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Submission Section -->
+    <section id="submit" class="featured-section" style="padding-bottom: 100px;">
+      <h2 class="section-title">Contribute Your Research</h2>
+      <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+        <p style="margin-bottom: 30px;">
+          Are you working on an interesting science project or have insights to share? Submit your article to be featured on our research page!
+        </p>
+        <a href="mailto:research@bhss.edu.pk" class="btn btn-primary">
+          <i class="fas fa-paper-plane"></i> Submit Your Article
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Bloomfield Hall Science Society | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Theme Toggle
+      const themeToggle = document.getElementById("theme-toggle");
+      const icon = themeToggle.querySelector("i");
+      
+      themeToggle.addEventListener("click", function () {
+        document.body.classList.toggle("light-mode");
+        document.body.classList.toggle("dark");
+        
+        if (document.body.classList.contains("light-mode")) {
+          icon.classList.remove("fa-moon");
+          icon.classList.add("fa-sun");
+        } else {
+          icon.classList.remove("fa-sun");
+          icon.classList.add("fa-moon");
+        }
+      });
+
+      // Mobile Menu Toggle
+      const hamburgerBtn = document.getElementById("hamburger-btn");
+      const navLinks = document.getElementById("navLinks");
+      
+      hamburgerBtn.addEventListener("click", function () {
+        hamburgerBtn.classList.toggle("active");
+        navLinks.classList.toggle("active");
+      });
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll(".nav-links a").forEach(link => {
+        link.addEventListener("click", () => {
+          hamburgerBtn.classList.remove("active");
+          navLinks.classList.remove("active");
+        });
+      });
+
+      // Category filter functionality
+      const categoryTags = document.querySelectorAll(".category-tag");
+      categoryTags.forEach(tag => {
+        tag.addEventListener("click", function() {
+          categoryTags.forEach(t => t.classList.remove("active"));
+          this.classList.add("active");
+          // Here you would filter articles based on category
+          // This would require JavaScript to fetch and filter articles
+        });
+      });
+
+      // Search functionality
+      const searchBtn = document.querySelector(".search-btn");
+      searchBtn.addEventListener("click", function() {
+        const searchTerm = document.querySelector(".search-input").value;
+        // Here you would implement search functionality
+        // This would require JavaScript to search through articles
+        console.log("Searching for:", searchTerm);
+      });
+    });
+  </script>
+</body>
+</html>
