@@ -203,12 +203,14 @@
         margin-bottom: 15px;
       }
 
-      .checkbox-group {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 15px;
-        margin-top: 15px;
-      }
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-auto-rows: 1fr; /* This makes all rows equal height */
+      gap: 8px;
+      margin-top: 15px;
+      align-items: center; /* Stretch items to fill the row */
+    }
 
       .form-actions {
         display: flex;
@@ -269,10 +271,10 @@
         position: relative;
         padding-left: 32px;
         cursor: pointer;
-        margin-bottom: 8px;
         display: flex;
         align-items: center;
         min-height: 24px;
+        height: 100%; /* Make each option fill its grid cell */
       }
 
       .radio-option input,
@@ -776,34 +778,54 @@
               <label class="checkbox-option">
                 <input
                   type="checkbox"
-                  id="engineering"
+                  id="english"
                   name="subjects[]"
-                  value="Engineering"
+                  value="English"
                 />
                 <span class="checkbox-custom"></span>
-                <span class="checkbox-label">Engineering</span>
+                <span class="checkbox-label">English</span>
               </label>
 
               <label class="checkbox-option">
                 <input
                   type="checkbox"
-                  id="astronomy"
+                  id="earthandspacesciences"
                   name="subjects[]"
-                  value="Astronomy"
+                  value="Earth and Space Sciences"
                 />
                 <span class="checkbox-custom"></span>
-                <span class="checkbox-label">Astronomy</span>
+                <span class="checkbox-label">Earth and Space Sciences</span>
               </label>
 
               <label class="checkbox-option">
                 <input
                   type="checkbox"
-                  id="other"
+                  id="business"
                   name="subjects[]"
-                  value="Other"
+                  value="Business"
                 />
                 <span class="checkbox-custom"></span>
-                <span class="checkbox-label">Other</span>
+                <span class="checkbox-label">Business</span>
+              </label>
+             <label class="checkbox-option">
+                <input
+                  type="checkbox"
+                  id="riddlespuzzlesandopticalillusions"
+                  name="subjects[]"
+                  value="Riddles, Puzzles and Optical Illusions"
+                />
+                <span class="checkbox-custom"></span>
+                <span class="checkbox-label">Riddles,Puzzles and Optical Illusions</span>
+              </label>
+            <label class="checkbox-option">
+                <input
+                  type="checkbox"
+                  id="robotics"
+                  name="subjects[]"
+                  value="Robotics"
+                />
+                <span class="checkbox-custom"></span>
+                <span class="checkbox-label">Robotics</span>
               </label>
             </div>
           </div>
